@@ -2,7 +2,7 @@
 
 //// method1 - readline from stdin (one, multi line)
 const readline = require('readline');
-const fs = require('fs'); // if file input
+// const fs = require('fs'); // if file input
 const rl = readline.createInterface({
     input: process.stdin,
     // input: fs.createReadStream('input.txt'),
@@ -12,8 +12,8 @@ const rl = readline.createInterface({
 
 let input = [];
 rl.on('line', function (line) {
-    input.push(line.split(' '));      // rl.close(); // one line
-    /* processing here */
+    input.push(line.split(' '));
+    // rl.close(); // one line
     
 }).on('close', function () {
     console.log(input);
