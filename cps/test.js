@@ -56,8 +56,12 @@ console.log();
             });
 
             str2 = '';
+            let multiline = false;
             rl.on('line', function (line) {
+                if(multiline)
+                    str2 += '\n';
                 str2 += line;
+                multiline = true;
             })
             await events.once(rl, 'close');
             rl.close();
@@ -68,12 +72,14 @@ console.log();
                 console.log(FgBlue, "OK", Reset);
                 ++check;
             }
+            else
+                console.log(FgRed, "KO", Reset);
         }
     }
 
     if (check === 5)
         console.log(FgBlue, "[All OK]", Reset);
     else
-        console.log(FgRed, "[Wrong]", Reset);
+        console.log(FgRed, "[Wrong]", check, '/ 5', Reset);
 })();
 
