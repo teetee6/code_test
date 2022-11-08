@@ -1,3 +1,4 @@
+// referenced from https://jun-choi-4928.medium.com/javascript%EB%A1%9C-heap-priority-queue-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0-8bc13bf095d9
 // {key, value}와 {key} 두개 혼용하게 해놨음
 /* key값이 우선순위임(낮을수록 높다)(1등, 2등) */
 
