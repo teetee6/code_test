@@ -2,7 +2,8 @@
 // {key, value}와 {key} 두개 혼용하게 해놨음
 /* key값이 우선순위임(낮을수록 높다)(1등, 2등) */
 
-    /* Synopsis
+//////////////////
+/* Synopsis
 class Heap {
     constructor() {}
     getLeftChildIndex;
@@ -20,102 +21,63 @@ class PriorityQueue extends Heap {
     enqueue;
     dequeue;
 }
-    */
+*/
+//////////////////
 
 class Heap {
-    constructor() {
-        this.heap = []
+    heap;
+    constructor() { this.heap = []; }
+    getLeftChildIndex(i) { return i*2 + 1;}
+    getRightChildIndex(i) { return i*2 + 2;}
+    getParentIndex(i) { return Math.floor((i -1)/2); }
+    peek() { return this.heap[0]; }
+    insert(key, value) {
+        this.heap.push({key, value});
+        this.heapifyUp();
     }
-
-    getLeftChildIndex = (pIndex) => pIndex * 2 + 1
-    getRightChildIndex = (pIndex) => pIndex * 2 + 2
-    getParentIndex = childIndex => Math.floor((childIndex -1) / 2)
-
-    peek = () => this.heap[0]
-
-    insert = (key, value) => {
-				const node = typeof value !== "undefined" ? {key, value} : {key};
-        //const node = {key, value}
-        this.heap.push(node)
-        this.heapifyUp()
-    }
-
-		/*
-		insert = (key) => {
-        const node = {key}
-        this.heap.push(node)
-        this.heapifyUp()
-    }
-		*/
-
-		// 올라갈때 우선순위 같으면 거기서 stop!
-    heapifyUp = () => {
-        let index = this.heap.length - 1 // swappable_child_index란 명칭이 더 잘 어울린다!
-        const lastInsertedNode = this.heap[index]
-
-        while (index > 0) {
-            const parentIndex = this.getParentIndex(index)
-            
-            if (this.heap[parentIndex].key > lastInsertedNode.key) {
-                this.heap[index] = this.heap[parentIndex]
-                index = parentIndex
+    heapifyUp() {
+        let index = this.heap.length - 1;
+        const lastNode = this.heap[index];
+        while(index > 0) {
+            const pIndex = this.getParentIndex(index);
+            if(this.heap[pIndex].key > lastNode.key) {
+                this.heap[index] = this.heap[pIndex];
+                index = pIndex;
             }
-            else
-                break;
+            else break;
         }
-
-        this.heap[index] = lastInsertedNode
+        this.heap[index] = lastNode;
     }
-
-    remove = () => {
-        const count = this.heap.length
-        const rootNode = this.heap[0]
-
-        if (count <= 0) return undefined
-        if (count === 1) this.heap = []
-        else {
-            this.heap[0] = this.heap.pop() // 루트노드 = 맨 꼬리값(기존루트값 사라짐)
-            this.heapifyDown()
-        }
-
-        return rootNode
+    remove() {
+        if(this.heap.length <= 1)
+            return this.heap.shift();
+        const rootNode = this.heap[0];
+        this.heap[0] = this.heap.pop();
+        this.heapifyDown();
+        return rootNode;
     }
-
-		// 내려갈때 우선순위가 같으면 계속 교체하며 내려간다(최대한 내려감)
-    heapifyDown = () => {
-        let index = 0
-        const count = this.heap.length
-        const rootNode = this.heap[index]
-
-				//index == count되는 순간 범위 벗어난것임
-        while (this.getLeftChildIndex(index) < count) {
-            const leftChildIndex = this.getLeftChildIndex(index)
-            const rightChildIndex = this.getRightChildIndex(index)
-
-						//낮을수록 우선순위 높다. 교체후보는 우선순위 높은게 위로 올라와야 한다
-            const smallerChildIndex =
-                rightChildIndex < count && this.heap[rightChildIndex].key < this.heap[leftChildIndex].key ? 
-                rightChildIndex : leftChildIndex
-
-            if (this.heap[smallerChildIndex].key <= rootNode.key) {
-                this.heap[index] = this.heap[smallerChildIndex]
-                index = smallerChildIndex
+    heapifyDown() {
+        let index = 0;
+        const rootNode = this.heap[index];
+        while(this.getLeftChildIndex(index) < this.heap.length) {
+            const l_index = this.getLeftChildIndex(index);
+            const r_index = this.getRightChildIndex(index);
+            let cIndex = l_index;
+            if (r_index < this.heap.length && this.heap[r_index].key < this.heap[l_index].key)
+                cIndex = r_index;
+            if (this.heap[cIndex].key < rootNode.key) {
+                this.heap[index] = this.heap[cIndex];
+                index = cIndex;
             }
-            else
-                break;
+            else break;
         }
-
-        this.heap[index] = rootNode
+        this.heap[index] = rootNode;
     }
 }
 
 class PriorityQueue extends Heap {
-    constructor() {
-        super()
-    }
-
-    enqueue = (priority, value) => this.insert(priority, value)
-		enqueue = (key) => this.insert(key)
-    dequeue = () => this.remove()
-    isEmpty = () => this.heap.length <= 0
+    constructor() { super(); }
+    enqueue(key, value) { this.insert(key, value); }
+    dequeue() { return this.remove(); }
+    isEmpty() { return this.heap.length <= 0; }
 }
