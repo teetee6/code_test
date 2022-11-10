@@ -14,9 +14,9 @@ const rl = readline.createInterface({
             process.exit();
         else if (value === 0){
             const x = pq.dequeue();
-            typeof x === 'undefined' ? console.log(-1) : console.log(x.value);
+            typeof x === 'undefined' ? console.log(-1) : console.log(-x.value);
         }
         else
-           pq.enqueue(value, value);
+           pq.enqueue(-value, -value);
     });
 })();

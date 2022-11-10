@@ -17,7 +17,7 @@ class Heap {
         const lastNode = this.heap[index];
         while(index > 0) {
             const pIndex = this.getParentIndex(index);
-            if(this.heap[pIndex].key > lastNode.key) {
+            if(this.heap[pIndex].key < lastNode.key) {
                 this.heap[index] = this.heap[pIndex];
                 index = pIndex;
             }
@@ -40,9 +40,9 @@ class Heap {
             const l_index = this.getLeftChildIndex(index);
             const r_index = this.getRightChildIndex(index);
             let cIndex = l_index;
-            if (r_index < this.heap.length && this.heap[r_index].key < this.heap[l_index].key)
+            if (r_index < this.heap.length && this.heap[r_index].key > this.heap[l_index].key)
                 cIndex = r_index;
-            if (this.heap[cIndex].key < rootNode.key) {
+            if (this.heap[cIndex].key > rootNode.key) {
                 this.heap[index] = this.heap[cIndex];
                 index = cIndex;
             }
