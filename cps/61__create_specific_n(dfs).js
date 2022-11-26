@@ -1,4 +1,5 @@
 const readline = require("readline");
+const WrapArray = require("./wrapArray");
 const rl = readline.createInterface({
   input: process.stdin,
   crlfDelay: Infinity,
@@ -40,13 +41,43 @@ const rl = readline.createInterface({
     // }
     // console.log(cnt);
 
-    let queue = [[0, 0]];
-    let tmp = [];
+    // let queue = [[0, 0]];
+    // let cnt = 0;
+    // while (queue.length) {
+    //   //   const cur = queue.shift();
+    //   const cur = queue[0];
+    //   queue = queue.slice(1);
+    //   if (cur[0] === n) {
+    //     cur[1] === m ? ++cnt : null;
+    //     continue;
+    //   }
+    //   queue.push([cur[0] + 1, cur[1] + arr[cur[0]]]);
+    //   queue.push([cur[0] + 1, cur[1]]);
+    //   queue.push([cur[0] + 1, cur[1] - arr[cur[0]]]);
+    // }
+    // console.log(cnt);
+
+    // let queue = WrapArray([[0, 0]]);
+    // let cnt = 0;
+    // while (queue.length) {
+    //   const cur = queue.shift();
+    //   if (cur[0] === n) {
+    //     cur[1] === m ? ++cnt : null;
+    //     continue;
+    //   }
+    //   queue.push([cur[0] + 1, cur[1] + arr[cur[0]]]);
+    //   queue.push([cur[0] + 1, cur[1]]);
+    //   queue.push([cur[0] + 1, cur[1] - arr[cur[0]]]);
+    // }
+    // console.log(cnt);
+
+    let queue = new Array([0, 0]);
+    let f_idx = -1,
+      l_idx = 0;
     let cnt = 0;
-    while (queue.length) {
-      //   const cur = queue.shift();
-      const cur = queue[0];
-      queue = queue.slice(1);
+    while (f_idx < l_idx) {
+      ++f_idx;
+      const cur = queue[f_idx];
       if (cur[0] === n) {
         cur[1] === m ? ++cnt : null;
         continue;
@@ -54,6 +85,7 @@ const rl = readline.createInterface({
       queue.push([cur[0] + 1, cur[1] + arr[cur[0]]]);
       queue.push([cur[0] + 1, cur[1]]);
       queue.push([cur[0] + 1, cur[1] - arr[cur[0]]]);
+      l_idx += 3;
     }
     console.log(cnt);
   });

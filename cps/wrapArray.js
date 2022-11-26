@@ -21,12 +21,11 @@ function WrapArray(_arr) {
       }
     },
     set(target, prop, val) {
-      //   console.log("set called!");
       switch (prop) {
-        // case "length":
-        //   target.length = val + shift_q;
-        //   return true;
-        //   break;
+        case "length": // pop() 호출시, deleteProperty() -> set()의 "length"호출됨
+          target.length = val + shift_q;
+          return true;
+          break;
 
         default:
           //   console.log(target, prop, val);
@@ -41,15 +40,13 @@ function WrapArray(_arr) {
     },
     deleteProperty(target, prop) {
       delete target[numlike(prop) ? Number(prop) + shift_q : prop];
-      console.log(">>" + target, target.length, prop, shift_q);
-      this.length = target.length;
       return true;
     },
     // [1,2,3,4,5], ?, 30
     apply(target, thisArg, argArray) {
       console.log("apply called!");
-      //   target.call(thisArg, ...argArray);
-      Array.prototype.call(thisArg, ...argArray);
+      target.call(thisArg, ...argArray);
+      // Array.prototype.push.call(target, ...argArray);
     },
     construct(target, argArray, newTarget) {
       return new target(...argArray);
@@ -57,13 +54,25 @@ function WrapArray(_arr) {
   });
 }
 
-(function main() {
-  arr = WrapArray([1, 2, 3, 4, 5]);
-  arr.push(40, 50);
-  console.log(arr, arr.length); // 1 2 3 4 5 40 50
-  arr.shift(), arr.shift(); // 3 4 5 40 50
-  console.log(arr, arr.length);
-  //   console.log(arr[5]);
-  arr.pop();
-  console.log(arr);
-})();
+// (function main() {
+//   arr = WrapArray([1, 2, 3, 4, 5]);
+//   arr.push(40, 50);
+//   console.log(arr, arr.length); // [1 2 3 4 5 40 50] 7
+//   arr.shift(), arr.shift();
+//   console.log(arr, arr.length); // [3 4 5 40 50] 5
+//   arr.pop();
+//   console.log(arr); // [3 4 5 40]
+//   console.log(arr.at(2)); // 5
+//   console.log(arr.every((v) => v > 3)); // true
+//   console.log(arr.every((v) => v > 0)); // false
+//   arr.fill(0, 0, 2);
+//   console.log(arr);
+//   console.log("");
+//   console.log(Array.prototype.join.call(arr, "+"));
+//   console.log("");
+//   //   for (let item of arr) console.log(item);
+//   //   let tmp = [1, 2, 3];
+//   //   for (let item of tmp) console.log(item);
+// })();
+
+module.exports = WrapArray;
