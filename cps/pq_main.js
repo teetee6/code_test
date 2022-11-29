@@ -1,4 +1,5 @@
-const PriorityQueue = require("./priority_queue");
+// const PriorityQueue = require("./priority_queue");
+const PriorityQueue = require("./pq");
 
 (() => {
   class Elem {
@@ -23,4 +24,15 @@ const PriorityQueue = require("./priority_queue");
   console.log(pq.dequeue());
   console.log(pq.dequeue());
   console.log(pq.dequeue());
+  let pq2 = new PriorityQueue();
+  pq2.enqueue(1);
+  pq2.enqueue(3);
+  pq2.enqueue(2);
+  pq2.enqueue(4);
+  pq2.enqueue(-100);
+  console.log(pq2.dequeue());
+  console.log(pq2.dequeue());
+  console.log(pq2.dequeue());
+  console.log(pq2.dequeue());
+  console.log(pq2.dequeue());
 })();

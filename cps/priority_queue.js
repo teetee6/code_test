@@ -50,6 +50,7 @@ class PriorityQueue {
     const lastNode = this.heap[index];
     while (index > 0) {
       const pIndex = this.getParentIndex(index);
+      // lastNode 우선순위가 높으면 올라가라!
       if (this.comp(lastNode, this.heap[pIndex])) {
         this.heap[index] = this.heap[pIndex];
         index = pIndex;
@@ -76,6 +77,7 @@ class PriorityQueue {
         this.comp(this.heap[r_index], this.heap[l_index])
       )
         cIndex = r_index;
+      // cIndex 우선순위가 더 높다면 올라와라! 난 더 내려간다!
       if (this.comp(this.heap[cIndex], rootNode)) {
         this.heap[index] = this.heap[cIndex];
         index = cIndex;
