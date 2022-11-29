@@ -1,26 +1,12 @@
-//////////////////
-/* Synopsis
-class PriorityQueue {
-    constructor(comp = function (a,b) {return a> b}) {}
-    getLeftChildIndex;
-    getRightChildIndex;
-    getParentIndex;
-    peek;
-    isEmpty;
-    enqueue;
-    heapifyUp;
-    dequeue;
-    heapifyDown;
-}
-*/
-//////////////////
+// referenced from https://jun-choi-4928.medium.com/javascript%EB%A1%9C-heap-priority-queue-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0-8bc13bf095d9
+/* key값이 우선순위임(낮을수록 높다)(1등, 2등) */
 
 class PriorityQueue {
   heap;
   comp;
   constructor(
     comp = function (a, b) {
-      return a > b;
+      return a.key > b.key;
     }
   ) {
     this.heap = [];
@@ -41,8 +27,8 @@ class PriorityQueue {
   isEmpty() {
     return this.heap.length <= 0;
   }
-  enqueue(obj) {
-    this.heap.push(obj);
+  enqueue(key) {
+    this.heap.push({ key });
     this.heapifyUp();
   }
   heapifyUp() {
@@ -85,34 +71,16 @@ class PriorityQueue {
   }
 }
 
-// (function main() {
-//   class Elem {
-//     constructor(key, value) {
-//       this.key = key;
-//       this.value = value;
-//     }
+(function main() {
+  //   let comp = (a, b) => {
+  //     return a.key < b.key;
+  //   };
 
-//     static compare(a, b) {
-//       if (a.key != b.key) return a.key < b.key;
-//       else if (a.value != b.value) return a.value < b.value;
-//       return false;
-//     }
-//   }
-
-//   let pq = new PriorityQueue(Elem.compare);
-//   pq.enqueue(new Elem(1, 1));
-//   pq.enqueue(new Elem(2, 3));
-//   pq.enqueue(new Elem(2, 2));
-//   pq.enqueue(new Elem(1, 4));
-//   // let pq = new PriorityQueue();
-//   // pq.enqueue(1);
-//   // pq.enqueue(3);
-//   // pq.enqueue(2);
-//   // pq.enqueue(4);
-//   console.log(pq.dequeue());
-//   console.log(pq.dequeue());
-//   console.log(pq.dequeue());
-//   console.log(pq.dequeue());
-// })();
-
-module.exports = PriorityQueue;
+  let pq = new PriorityQueue();
+  pq.enqueue(3);
+  pq.enqueue(2);
+  pq.enqueue(4);
+  console.log(pq.dequeue());
+  console.log(pq.dequeue());
+  console.log(pq.dequeue());
+})();
