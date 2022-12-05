@@ -8,6 +8,7 @@ const PriorityQueue = require("./pq");
       this.val = val;
     }
     static comparator(a, b) {
+      //원래 js에서 comp는 참일때 swap하므로 아래의경우, 내림차순 결과가 나오는게 직관적이긴 함....
       if (a.str != b.str) return a.str < b.str;
       else if (a.val != b.val) return a.val < b.val;
       return false;

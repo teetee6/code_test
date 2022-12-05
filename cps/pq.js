@@ -1,3 +1,5 @@
+// 연습용입니다
+
 class PriorityQueue {
   heap;
   comp;
