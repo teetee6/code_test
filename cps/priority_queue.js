@@ -1,5 +1,4 @@
-//////////////////
-/* Synopsis
+/*  Synopsis
 class PriorityQueue {
     constructor(comp = function (a,b) {return a> b}) {}
     getLeftChildIndex;
@@ -13,7 +12,6 @@ class PriorityQueue {
     heapifyDown;
 }
 */
-//////////////////
 
 class PriorityQueue {
   heap;
@@ -86,35 +84,5 @@ class PriorityQueue {
     this.heap[index] = rootNode;
   }
 }
-
-// (function main() {
-//   class Elem {
-//     constructor(key, value) {
-//       this.key = key;
-//       this.value = value;
-//     }
-
-//     static compare(a, b) {
-//       if (a.key != b.key) return a.key < b.key;
-//       else if (a.value != b.value) return a.value < b.value;
-//       return false;
-//     }
-//   }
-
-//   let pq = new PriorityQueue(Elem.compare);
-//   pq.enqueue(new Elem(1, 1));
-//   pq.enqueue(new Elem(2, 3));
-//   pq.enqueue(new Elem(2, 2));
-//   pq.enqueue(new Elem(1, 4));
-//   // let pq = new PriorityQueue();
-//   // pq.enqueue(1);
-//   // pq.enqueue(3);
-//   // pq.enqueue(2);
-//   // pq.enqueue(4);
-//   console.log(pq.dequeue());
-//   console.log(pq.dequeue());
-//   console.log(pq.dequeue());
-//   console.log(pq.dequeue());
-// })();
 
 module.exports = PriorityQueue;
